@@ -1,4 +1,4 @@
-import { MoodType, MoodConfig, Story } from './types';
+import { MoodType, MoodConfig, Story } from './types.ts';
 
 export const MOODS: MoodConfig[] = [
   // Existing
@@ -23,7 +23,7 @@ export const MOODS: MoodConfig[] = [
   { id: MoodType.UNMOTIVATED, label: '無気力', icon: 'Coffee', color: 'bg-stone-600', description: 'どうしても動く気になれないとき' },
   { id: MoodType.NOSTALGIC, label: '過去', icon: 'Hourglass', color: 'bg-amber-900', description: '思い出の中に留まってしまうとき' },
   { id: MoodType.ENVY, label: '羨望', icon: 'Sparkles', color: 'bg-emerald-800', description: '誰かの輝きが眩しすぎるとき' },
-  { id: MoodType.DISAPPOINTED, label: 'がっかり', icon: 'TrendingDown', color: 'bg-slate-600', description: '期待が外れて力が抜けたとき' },
+  { id: MoodType.DISAPPOINTED, label: 'がかがり', icon: 'TrendingDown', color: 'bg-slate-600', description: '期待が外れて力が抜けたとき' },
 ];
 
 export const FALLBACK_STORY: Story = {

@@ -20,16 +20,15 @@
       body { font-family: 'Zen Maru Gothic', sans-serif; background-color: #1a1a1a; color: #e5e5e5; margin: 0; }
       .font-serif { font-family: 'Shippori Mincho', serif; }
       #debug-overlay { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; pointer-events: none; }
-      .error-msg { background: rgba(220, 38, 38, 0.9); color: white; padding: 10px; margin: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; pointer-events: auto; }
+      .error-msg { background: rgba(220, 38, 38, 0.9); color: white; padding: 10px; margin: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; pointer-events: auto; white-space: pre-wrap; word-break: break-all; }
       #root { min-height: 100vh; }
     </style>
     
-    <!-- 1. polyfill for environment variables -->
     <script>
       window.process = { env: { API_KEY: "" } };
       window.global = window;
       
-      // Error reporting to screen
+      // エラーを画面に表示するデバッグ機能
       window.onerror = function(msg, url, line, col, error) {
         var container = document.getElementById('debug-overlay');
         if (container) {
@@ -42,7 +41,7 @@
       };
     </script>
 
-    <!-- 2. Import Map Overrides for stability (React 19.0.0 consistent) -->
+    <!-- Import Map: React 19.0.0 に統一 -->
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
     <script type="importmap">
 {
@@ -61,12 +60,11 @@
   <body>
     <div id="debug-overlay"></div>
     <div id="root">
-      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; color: #555;">
-        <div style="margin-bottom: 20px;">庭園を整えています...</div>
-        <div style="font-size: 12px; color: #333;">もし数秒経ってもこのままの場合は、リロードをお試しください</div>
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; color: #666; font-family: sans-serif;">
+        <div style="margin-bottom: 20px; font-size: 1.2rem;">庭園を整えています...</div>
+        <div style="font-size: 12px; color: #444;">ロードに時間がかかる場合は、再読み込みしてください</div>
       </div>
     </div>
-    <!-- 相対パス。./ をつけることで現在の階層を明示 -->
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>
