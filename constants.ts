@@ -30,7 +30,7 @@ export const FALLBACK_STORY: Story = {
   body: '古い喫茶店の窓に、小さな世界が詰まっている。雨粒が描く模様、湯気でぼやけた景色。そこにいるだけで、少しだけ自分が許される気持ちになる。焦らなくていい。ただ雨音を聞いているだけで、世界はちゃんと回っている。',
   reframe: 'その「ただいる」時間が、次に動く力を静かに養ってくれる。',
   action: '今、窓の外を1分だけぼんやり見てみよう。呼吸に意識を戻すだけで、心は少し楽になる。',
-  source: 'マルクス・アウレリウス『自省録』の「今」に集中する思想より',
+  source: 'マルクス・アウレリウス『自省録』より',
   readTime: '40秒',
   bgmSuggestion: 'rain',
   visualSuggestion: 'Rainy window in a cozy cafe, lo-fi anime style',
@@ -47,13 +47,17 @@ Structure your response strictly as a JSON object with the following schema:
 {
   "title": "Short poetic title (max 15 chars)",
   "intro": "Empathetic opening line validating their feeling (20-40 chars)",
-  "body": "The core story/metaphor. Use nature, quiet moments, or travel metaphors. Avoid overly dramatic words. (150-220 chars)",
+  "body": "The core story/metaphor. Use nature, quiet moments, or travel metaphors. (150-220 chars)",
   "reframe": "A perspective shift. How can they see this situation differently? (40-80 chars)",
-  "action": "One very small, doable physical or mental action. (1-2 lines)",
-  "source": "The inspiration source. E.g., 'Inspired by Seneca's On Shortness of Life' or 'Based on Stoic philosophy of control'. (Japanese)",
+  "action": "One very small, doable physical or mental action.",
+  "source": "The inspiration source in Japanese.",
   "readTime": "Estimated read time (e.g. '45秒')",
-  "bgmSuggestion": "One keyword for audio engine: 'rain', 'wind', 'forest', 'night', or 'calm'",
-  "visualSuggestion": "Detailed English description for an anime-style scenery image generator. (e.g., 'A quiet forest path with dappled sunlight, Ghibli style, soothing colors')"
+  "bgmSuggestion": "One keyword: 'rain', 'wind', 'forest', 'night', or 'calm'",
+  "visualSuggestion": "Detailed English description for an anime-style scenery image generator."
 }
-... (省略) ...
+
+Guidelines:
+1. Tone: Calm, low voice, "It is okay to stop."
+2. Avoid medical advice.
+3. Be artistic and poetic.
 `;
