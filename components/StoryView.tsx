@@ -64,7 +64,8 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
 
   const handleShare = async () => {
     const text = `『${story.title}』\n${story.intro}\n\n#RestStop #一息の場所`;
-    const url = window.location.origin;
+    // Use window.location.href to include the repository path on GitHub Pages
+    const url = window.location.href;
 
     if (navigator.share) {
       try {
