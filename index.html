@@ -17,7 +17,8 @@
     
     <title>Rest Stop - 一息の場所</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&swap" rel="stylesheet">
+    
     <style>
       body {
         font-family: 'Zen Maru Gothic', sans-serif;
@@ -45,28 +46,38 @@
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
     
-    <!-- Polyfill for process.env used by the Gemini SDK in browser environments -->
+    <!-- Gemini SDK用のpolyfill -->
     <script>
       window.process = { env: { API_KEY: "" } };
     </script>
 
     <script type="importmap">
-    {
-      "imports": {
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-        "react": "https://esm.sh/react@^19.2.3",
-        "react/": "https://esm.sh/react@^19.2.3/"
-      }
-    }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.3.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
   </head>
   <body>
     <div id="root"></div>
-    <!-- Ensure relative path without leading slash for sub-directory hosting -->
-    <script type="module" src="index.tsx"></script>
+    <!-- 
+      ./ を付けることで、現在の階層（リポジトリ名のフォルダ内）から index.tsx を探すよう強制します
+    -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
