@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Story } from '../types';
+import { Story } from '../types.ts';
 import { Volume2, VolumeX, ArrowLeft, RefreshCw, Heart, Share2, BookOpen, Timer, Check } from 'lucide-react';
-import { soundEngine } from '../utils/audio';
+import { soundEngine } from '../utils/audio.ts';
 
 interface StoryViewProps {
   story: Story;
@@ -17,10 +17,8 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
   const [shared, setShared] = useState(false);
 
   useEffect(() => {
-    // 1. Content Fade-in
     const timer = setTimeout(() => setShowContent(true), 300);
 
-    // 2. Audio Autoplay
     const startAudio = async () => {
       try {
         await soundEngine.play(story.bgmSuggestion);
@@ -48,12 +46,10 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
       soundEngine.clearTimer();
       setTimerActive(false);
     } else {
-      // If audio is not playing, start it
       if (!isPlaying) {
         soundEngine.play(story.bgmSuggestion);
         setIsPlaying(true);
       }
-      // Set 5 minute timer (300 seconds)
       soundEngine.setTimer(300, () => {
         setTimerActive(false);
         setIsPlaying(false);
@@ -64,7 +60,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
 
   const handleShare = async () => {
     const text = `『${story.title}』\n${story.intro}\n\n#RestStop #一息の場所`;
-    // Use window.location.href to include the repository path on GitHub Pages
     const url = window.location.href;
 
     if (navigator.share) {
@@ -74,11 +69,8 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
           text: text,
           url: url,
         });
-      } catch (error) {
-        // Share cancelled or failed, ignore
-      }
+      } catch (error) {}
     } else {
-      // Fallback to clipboard
       try {
         await navigator.clipboard.writeText(`${text}\n${url}`);
         setShared(true);
@@ -89,7 +81,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
     }
   };
 
-  // Use generated image or fallback
   const bgUrl = story.imageUrl 
     ? story.imageUrl 
     : `https://picsum.photos/seed/${story.visualSuggestion + story.id}/1080/1920?grayscale&blur=2`;
@@ -97,7 +88,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
       
-      {/* Background Layer with Ken Burns Effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
           className="w-full h-full bg-cover bg-center animate-ken-burns opacity-60"
@@ -106,7 +96,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
         <div className="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/90" />
       </div>
 
-      {/* Top Controls */}
       <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-20">
         <button 
           onClick={onBack}
@@ -142,7 +131,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
         </div>
       </div>
 
-      {/* Main Content Card */}
       <div 
         className={`
           relative z-10 max-w-lg w-full max-h-[85vh] overflow-y-auto 
@@ -152,8 +140,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
         `}
       >
         <div className="space-y-8">
-          
-          {/* Header */}
           <div className="text-center space-y-4">
             <p className="text-xs tracking-[0.2em] text-stone-400 uppercase">
               {story.readTime}の休息
@@ -167,12 +153,10 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
             </p>
           </div>
 
-          {/* Body */}
           <div className="font-serif text-lg leading-loose text-stone-100/95 whitespace-pre-wrap drop-shadow-md">
             {story.body}
           </div>
 
-          {/* Source Citation */}
           {story.source && (
             <div className="flex items-center justify-end gap-2 text-xs text-stone-500 font-serif border-t border-white/5 pt-4">
               <BookOpen className="w-3 h-3" />
@@ -180,7 +164,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
             </div>
           )}
 
-          {/* Reframe Section */}
           <div className="bg-white/10 border border-white/10 rounded-lg p-6 backdrop-blur-md mt-4 shadow-xl">
             <h3 className="text-stone-300 text-xs font-bold tracking-widest uppercase mb-2 opacity-80">
               新しい視点
@@ -190,7 +173,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
             </p>
           </div>
 
-          {/* Action Section */}
           <div className="border-l-2 border-emerald-500 pl-4 py-1">
             <h3 className="text-stone-400 text-xs font-bold tracking-widest uppercase mb-1">
               小さく動く
@@ -200,7 +182,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
             </p>
           </div>
 
-          {/* Bottom Actions */}
           <div className="flex justify-center gap-6 pt-8">
             <button 
               onClick={() => setLiked(!liked)}
@@ -223,7 +204,6 @@ export const StoryView: React.FC<StoryViewProps> = ({ story, onBack, onRegenerat
               {shared ? <Check className="w-5 h-5 text-emerald-400" /> : <Share2 className="w-5 h-5" />}
             </button>
           </div>
-          
         </div>
       </div>
     </div>

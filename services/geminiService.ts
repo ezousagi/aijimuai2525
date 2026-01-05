@@ -1,8 +1,7 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { Story, MoodType } from "../types";
-import { SYSTEM_PROMPT, FALLBACK_STORY } from "../constants";
+import { Story, MoodType } from "../types.ts";
+import { SYSTEM_PROMPT, FALLBACK_STORY } from "../constants.ts";
 
-// Schema definition for the model output
 const storySchema: Schema = {
   type: Type.OBJECT,
   properties: {
@@ -31,7 +30,6 @@ export const generateStoryForMood = async (mood: MoodType): Promise<Story> => {
   const ai = new GoogleGenAI({ apiKey });
 
   try {
-    // 1. Generate Text Story
     const textResponse = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `The user is feeling: ${mood}. Please write a story for them.`,
@@ -47,7 +45,6 @@ export const generateStoryForMood = async (mood: MoodType): Promise<Story> => {
     if (!textJson) throw new Error("No response text from Gemini");
     const data = JSON.parse(textJson);
 
-    // 2. Generate Image (Parallel if possible, but sequential here for simplicity)
     let imageUrl: string | undefined = undefined;
     
     try {
@@ -65,7 +62,6 @@ export const generateStoryForMood = async (mood: MoodType): Promise<Story> => {
         },
       });
 
-      // Iterate through parts to find the image
       if (imageResponse.candidates?.[0]?.content?.parts) {
         for (const part of imageResponse.candidates[0].content.parts) {
           if (part.inlineData && part.inlineData.data) {
@@ -76,7 +72,6 @@ export const generateStoryForMood = async (mood: MoodType): Promise<Story> => {
       }
     } catch (imageError) {
       console.warn("Image generation failed:", imageError);
-      // Fallback to picsum is handled in UI if imageUrl is undefined
     }
 
     return {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { MOODS } from '../constants';
-import { MoodType } from '../types';
+import { MOODS } from '../constants.ts';
+import { MoodType } from '../types.ts';
 import * as Icons from 'lucide-react';
 
 interface MoodGridProps {
@@ -12,7 +12,6 @@ export const MoodGrid: React.FC<MoodGridProps> = ({ onSelect, disabled }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-2xl px-4">
       {MOODS.map((mood) => {
-        // Dynamically get icon component
         const IconComponent = (Icons as any)[mood.icon] || Icons.HelpCircle;
 
         return (

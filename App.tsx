@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { MoodGrid } from './components/MoodGrid';
-import { StoryView } from './components/StoryView';
-import { SafetyBar } from './components/SafetyBar';
-import { Story, MoodType } from './types';
-import { generateStoryForMood } from './services/geminiService';
+import { MoodGrid } from './components/MoodGrid.tsx';
+import { StoryView } from './components/StoryView.tsx';
+import { SafetyBar } from './components/SafetyBar.tsx';
+import { Story, MoodType } from './types.ts';
+import { generateStoryForMood } from './services/geminiService.ts';
 import { Sparkles, Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -16,7 +16,6 @@ const App: React.FC = () => {
     setIsLoading(true);
     setLastMood(mood);
     
-    // Smooth scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     try {
@@ -33,7 +32,6 @@ const App: React.FC = () => {
 
   const handleBack = () => {
     setCurrentScreen('HOME');
-    // Keep the story in memory but allow picking a new mood
   };
 
   const handleRegenerate = () => {
@@ -50,11 +48,9 @@ const App: React.FC = () => {
       {currentScreen === 'HOME' && (
         <div className="min-h-screen flex flex-col items-center justify-center py-20 relative overflow-hidden">
           
-          {/* Ambient Background Elements */}
           <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-indigo-900/10 to-transparent pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-emerald-900/5 blur-3xl pointer-events-none" />
 
-          {/* Hero Section */}
           <div className="text-center mb-12 px-4 z-10">
             <div className="flex items-center justify-center gap-2 mb-4 text-emerald-400/80">
               <Sparkles className="w-5 h-5" />
@@ -69,7 +65,6 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          {/* Interaction Area */}
           {isLoading ? (
             <div className="h-96 flex flex-col items-center justify-center gap-6 fade-in">
               <div className="relative">
@@ -87,7 +82,6 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {/* Footer */}
           {!isLoading && (
             <footer className="absolute bottom-6 text-xs text-stone-600 font-mono">
               Powered by Gemini • Minimal Self-Care
