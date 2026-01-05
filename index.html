@@ -17,7 +17,7 @@
     
     <title>Rest Stop - 一息の場所</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
       body {
@@ -55,29 +55,33 @@
       }
     </style>
     
-    <!-- Gemini SDK用のpolyfill -->
+    <!-- Gemini SDKやその他のライブラリが期待するグローバル変数の定義 -->
     <script>
       window.process = { env: { API_KEY: "" } };
+      window.global = window;
     </script>
 
     <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
     "@google/genai": "https://esm.sh/@google/genai@1.3.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
   </head>
   <body>
-    <div id="root"></div>
-    <!-- 
-      ./ を付けることで、現在の階層（リポジトリ名のフォルダ内）から index.tsx を探すよう強制します
-    -->
-    <script type="module" src="./index.tsx"></script>
+    <div id="root">
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; color: #555; font-family: sans-serif;">
+        読み込み中...
+      </div>
+    </div>
+    <!-- 相対パスで読み込み -->
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>

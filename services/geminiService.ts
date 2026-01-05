@@ -19,10 +19,11 @@ const storySchema: Schema = {
 };
 
 export const generateStoryForMood = async (mood: MoodType): Promise<Story> => {
-  const apiKey = process.env.API_KEY;
+  // process.env が存在しない環境でも安全に取得
+  const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : undefined;
 
   if (!apiKey) {
-    console.warn("No API Key found. Returning fallback story.");
+    console.warn("API Key is missing. Check your environment settings.");
     await new Promise(resolve => setTimeout(resolve, 1500));
     return { ...FALLBACK_STORY, id: 'fallback-' + Date.now() };
   }
